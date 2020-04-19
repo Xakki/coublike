@@ -1,0 +1,42 @@
+{
+    "name": "xakki/coublike",
+    "description": "Couber like swing",
+    "keywords": ["yii2", "framework", "basic", "coublike"],
+    "homepage": "http://coublike.ru",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=8.1",
+        "ext-json": "*",
+        "yidas/yii2-bower-asset": "~2.0",
+        "yiisoft/yii2": "^2.0",
+        "yiisoft/yii2-bootstrap": "^2.0",
+        "linslin/yii2-curl": "^1.2",
+        "dektrium/yii2-user": "^0.9",
+        "xakki/phperrorcatcher": "*",
+        "psr/log": "^1.1",
+        "xakki/phpwall": "^0.1"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*",
+        "yiisoft/yii2-faker": "*",
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.4",
+        "squizlabs/php_codesniffer": "^3.6",
+        "opsway/psr12-strict-coding-standard": "^0.7"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "archive": {
+        "exclude": ["/.git/"]
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --memory-limit 2G",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "cs-commit-check": "git diff --name-only --diff-filter=AM origin/master | grep .php | xargs composer cs-check",
+        "cs-commit-fix": "git diff --name-only --diff-filter=AM origin/master | grep .php | xargs composer cs-fix"
+    }
+}

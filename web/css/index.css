@@ -1,0 +1,51 @@
+
+.container-fluid {
+    background: #d9e0e7;
+}
+.container-fluid .row {
+    padding-top: 45px;
+    padding-bottom: 30px;
+}
+
+.bg-silver-lighter {
+    background: #f4f6f7!important;
+}
+
+
+
+.wpage {
+    position: relative;
+}
+
+.first-page {
+    position: relative;
+}
+.first-page-in {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.first-page-a {
+    font-size: 28px;
+    color: black;
+    text-transform: uppercase;
+}
+.first-page-l {
+    font-size: 30px;
+    margin: 35px 0 0 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+@media screen and (min-width: 800px) {
+    .first-page-l {
+        white-space: nowrap;
+
+    }
+}
+
+#func .container {
+}
+
+#faq .container {
+}

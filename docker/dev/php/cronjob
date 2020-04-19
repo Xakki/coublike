@@ -1,0 +1,7 @@
+## Coublike
+SHELL=/bin/bash
+BASH_ENV=/etc/environment
+
+*/10 * * * * php yii tasker/stats > /dev/null
+*/10 * * * * php yii tasker/off > /dev/null
+55 12 * * * php yii referrals > /dev/null

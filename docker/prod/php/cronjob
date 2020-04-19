@@ -1,0 +1,7 @@
+## Unidoski
+SHELL=/bin/bash
+BASH_ENV=/etc/environment
+
+* * * * * /usr/local/bin/php public/index.php cron > /dev/null
+
+* * * * * /usr/local/bin/php public/index.php emailer send > /dev/null

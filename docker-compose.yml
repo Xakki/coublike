@@ -1,0 +1,77 @@
+version: "3.5"
+services:
+    php:
+        build:
+            context: docker/${ENV:-dev}/php
+            dockerfile: Dockerfile
+        container_name: coublike-php
+        working_dir: /app
+        volumes:
+            - ./:/app
+        environment:
+            - ENV=${ENV}
+            - DATABASE_URL=coublike-mariadb:3306
+        ports:
+            - "10001:9000"
+            - "10002:9312"
+            - "10003:9306"
+        restart: "no"
+        networks:
+            - default
+
+    mariadb:
+        image: mariadb:10.5
+        container_name: coublike-mariadb
+        working_dir: /backup
+        volumes:
+            - mydb:/var/lib/mysql
+            - ./docker/backup:/backup
+            - ./docker/${ENV}/mariadb/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf
+            #- ./docker/${ENV}/mariadb/50-mysqld_safe.cnf:/etc/mysql/mariadb.conf.d/50-mysqld_safe.cnf
+        environment:
+            MARIADB_USER: coublike
+            MARIADB_PASSWORD: coublike
+            MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+        ports:
+            - "10004:3306"
+        restart: "no"
+        networks:
+            - default
+
+    nginx:
+        image: nginx:latest
+        container_name: coublike-nginx
+        working_dir: /app
+        volumes:
+            - ./:/app
+            - ./docker/${ENV}/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/${ENV}/nginx/static_params:/etc/nginx/static_params
+            - ./docker/${ENV}/nginx/fpm_params:/etc/nginx/fpm_params
+            - ./docker/${ENV}/nginx/ssl:/etc/nginx/ssl
+        environment:
+            - ENV=${ENV}
+            - APPLICATION_URL=${URL}
+        ports:
+            - "80:80"
+            - "443:443"
+        #restart: "on-failure"
+        restart: "no"
+        networks:
+            - default
+        depends_on:
+            - php
+
+#    redis:
+#      image: redis:alpine
+#      container_name: uni-redis
+#      restart: "on-failure"
+#      networks:
+#        - default
+
+volumes:
+  mydb:
+    name: coublike-mydb
+
+networks:
+  default:
+    name: xakki-network

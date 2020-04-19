@@ -1,0 +1,16 @@
+parameters:
+    parallel:
+        processTimeout: 600.0
+    level: 4
+    paths:
+        - commands
+        - components
+        - config
+        - controllers
+        - exception
+        - models
+        - modules
+        - test
+        - traits
+    bootstrapFiles:
+        - web/index.php
